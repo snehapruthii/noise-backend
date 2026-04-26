@@ -28,7 +28,7 @@ app.post('/api/noise', async (req, res) => {
     console.log("📨 INCOMING DATA:", req.body); 
 
     // Assuming your Mongoose model is named 'Noise' (or whatever you named it!)
-    const newNoiseData = new Noise(req.body); 
+    const newNoiseData = new NoiseData(req.body); 
     await newNoiseData.save();
 
     res.status(200).send("Data successfully saved!");
