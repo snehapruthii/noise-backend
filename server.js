@@ -21,13 +21,21 @@ const NoiseData = mongoose.model('Noise', new mongoose.Schema({
 }));
 
 // Route to receive data from the hardware
+// The Mailbox: Catch data from the simulator and save it to MongoDB
 app.post('/api/noise', async (req, res) => {
-    try {
-        await new NoiseData(req.body).save();
-        res.status(201).send("Saved!");
-    } catch (error) {
-        res.status(500).send("Error");
-    }
+  try {
+    // Print the data to the Render logs so we can see it arrive!
+    console.log("📨 INCOMING DATA:", req.body); 
+
+    // Assuming your Mongoose model is named 'Noise' (or whatever you named it!)
+    const newNoiseData = new Noise(req.body); 
+    await newNoiseData.save();
+
+    res.status(200).send("Data successfully saved!");
+  } catch (error) {
+    console.error("❌ Database save failed:", error.message);
+    res.status(500).send("Failed to save data");
+  }
 });
 
 // Route to send data to your React map
