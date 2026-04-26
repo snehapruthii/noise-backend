@@ -7,7 +7,7 @@ app.use(cors({ origin: '*' }));
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://snehapruthi0228:<db_password>@cluster0.3gc55vy.mongodb.net/?appName=Cluster0')
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Database connected!'))
   .catch(err => console.log('Database error: ', err));
 
